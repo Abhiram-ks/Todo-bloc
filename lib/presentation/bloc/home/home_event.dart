@@ -12,3 +12,9 @@ class DeleteTodoEvent extends HomeEvent{
   DeleteTodoEvent(this.id);
 }
 
+class SearchTaskEvent extends HomeEvent {
+  final String quary;
+   
+  SearchTaskEvent(this.quary);
+}
+
