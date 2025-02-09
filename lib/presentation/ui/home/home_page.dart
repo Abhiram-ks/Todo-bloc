@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:todo_app/presentation/bloc/home/home_bloc.dart';
-import 'package:todo_app/presentation/core/constant/constant.dart';
 import 'package:todo_app/presentation/repo/api_delete.dart';
 import 'package:todo_app/presentation/ui/add/custom_bottomshet.dart';
-import 'package:todo_app/presentation/ui/home/widget/search_bar_widget.dart';
 import 'package:todo_app/presentation/ui/home/widget/todo_list_widget.dart';
 import '../../core/colors/colors.dart';
 import '../../core/widget/custom_appbar.dart';
@@ -14,6 +12,7 @@ class HomePage extends StatelessWidget {
   HomePage({super.key});
   final TextEditingController headerController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +32,6 @@ class HomePage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
         children: [
-           Searchbarmain(
-              hintText: 'Search for your tasks',
-              onSearchPressed: (query) {},
-              controller: TextEditingController(),
-            ),hight10,
             Expanded(
               child: MultiBlocListener(
                 listeners: [
@@ -101,6 +95,7 @@ class HomePage extends StatelessWidget {
                 return TodoListWidget(
                   onTap: () {},
                   title: todo.title,
+                  id: todo.id,
                   description: todo.description,
                   isCompleted: todo.isCompleted,
                   delete: () {

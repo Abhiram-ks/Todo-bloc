@@ -28,6 +28,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
      }
    }
 
+
    Future<void> _deleteTod(
     DeleteTodoEvent event, Emitter<HomeState> emit
    )async{

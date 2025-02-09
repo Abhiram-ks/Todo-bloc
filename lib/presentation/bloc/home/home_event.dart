@@ -5,8 +5,10 @@ sealed class HomeEvent {}
 
 class ShowBottomSheetEvent extends HomeEvent{}
 class HideBottomSheetEvent extends HomeEvent {}
+class ShowDetailSheetEvent extends HomeEvent {}
 class FetchTodosEvent extends HomeEvent {}
 class DeleteTodoEvent extends HomeEvent{
   final String id;
   DeleteTodoEvent(this.id);
 }
+

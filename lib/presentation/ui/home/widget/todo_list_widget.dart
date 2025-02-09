@@ -6,6 +6,7 @@ import '../../../core/colors/colors.dart';
 class TodoListWidget extends StatelessWidget {
   final VoidCallback? onTap;
   final String title;
+  final String id;
   final String description;
   final VoidCallback? delete;
   final bool isCompleted;
@@ -16,6 +17,7 @@ class TodoListWidget extends StatelessWidget {
     required this.title,
     required this.description,
     required this.isCompleted,
+    required this.id,
     required this.delete,
   });
 
@@ -73,10 +75,32 @@ class TodoListWidget extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(height: screenHeight * 0.005),
+                                    Row(children: [
+                                      const Icon(
+                                          Icons.install_desktop_rounded,
+                                          color: Color.fromARGB(255, 82, 82, 82),
+                                          size: 10,
+                                        ),
+                                     SizedBox(width: screenWidth * 0.02),
+                                        Expanded(
+                                          
+                                          child: Text(
+                                            id,
+                                            style: const TextStyle(
+                                              color:  Color.fromARGB(255, 82, 82, 82),
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 7.0,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                        ),
+                                    ],),
                                     Row(
                                       children: [
                                         const Icon(
-                                          Icons.turned_in_outlined,
+                                          Icons.dynamic_form_outlined,
                                           color: Color.fromARGB(255, 82, 82, 82),
                                           size: 17,
                                         ),
