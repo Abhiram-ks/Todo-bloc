@@ -12,7 +12,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
 }
 
 Future<void> _onStartSplash(StartSplashEvent event, Emitter<SplashState> emit) async{
-  const duration = Duration(seconds:6);
+  const duration = Duration(seconds:2);
   final startTime = DateTime.now();
 
 

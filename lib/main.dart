@@ -19,14 +19,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => SplashBloc()..add(StartSplashEvent())),
-        BlocProvider(create: (context) => HomeBloc(),),
+        
+        BlocProvider(create: (context) => SplashBloc()..add(StartSplashEvent()  
+        )),
+         BlocProvider(create: (context) => HomeBloc()..add(FetchTodosEvent())),
         BlocProvider(
           create: (context) => PostApiBloc(),
         )
       ],
       child: MaterialApp(
-        title: 'MY DAY',
+        title: 'MY DAY', 
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             primarySwatch: primaryColor,

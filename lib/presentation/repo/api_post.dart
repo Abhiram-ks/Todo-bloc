@@ -1,7 +1,5 @@
-
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:http/http.dart' as http;
 
 class PostMethod {
@@ -23,18 +21,18 @@ class PostMethod {
         body: jsonEncode(body),
        );
        if (response.statusCode >= 200 && response.statusCode < 300) {
-         log('Success response! ${response.statusCode}');
+         log('Error Post: ${response.statusCode} - ${response.body}');
+         log('Success response! Post ${response.statusCode}');
          return true;
        } else {
-         log('Error: ${response.statusCode} - ${response.body}');
+         log('Error Post: ${response.statusCode} ');
          return false;
        }
      } catch (e) {
-       log(e.toString());
+       log('Post Error: $e');
        return false;
      } finally {
       client.close();
      }
-
   }
 }

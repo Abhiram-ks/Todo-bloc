@@ -16,26 +16,32 @@ class PostApiBloc extends Bloc<PostApiEvent, PostApiState> {
   }
 
 
-  Future<void> _onSubmitForm(
-    SubmitFormEvent event, Emitter<PostApiState> emit
-  ) async{
-     if (!formKey.currentState!.validate()) {
-    return;
-   }
-    try {
-      emit(FormSubmittingState());
-      
-      bool success = await PostMethod.addPost(title: event.header, description: event.description);
-      if (success) {
-        log('${event.header} & ${event.description}');
-        emit(FormSubmissionSuccessState());
-      } else {
-        emit(FormSubmissionFailureState(error: 'Submission failed'));
-      }
-    } catch (e) {
-       emit(FormSubmissionFailureState(error: e.toString()));
+  Future<void> _onSubmitForm(SubmitFormEvent event, Emitter<PostApiState> emit) async {
+  try {
+    if(formKey.currentState == null || !formKey.currentState!.validate()){
+      return;
     }
+    emit(FormSubmittingState());
+    log('Submitting form: ${event.header} - ${event.description}');
+
+    bool success = await PostMethod.addPost(
+      title: event.header, 
+      description: event.description,
+    );
+
+    if (success) {
+      log('Form submitted successfully');
+      emit(FormSubmissionSuccessState());
+    } else {
+      log('Form submission failed');
+      emit(FormSubmissionFailureState(error: 'Submission failed'));
+    }
+  } catch (e) {
+    log('Error Post: $e');
+    emit(FormSubmissionFailureState(error: e.toString()));
   }
+}
+
 }
 
 
