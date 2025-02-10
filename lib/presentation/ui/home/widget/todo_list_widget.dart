@@ -1,10 +1,12 @@
-
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/presentation/home/home_bloc.dart';
+import 'package:todo_app/presentation/bloc/putApi/put_api_bloc.dart';
+import 'package:todo_app/presentation/ui/home/widget/detailwidget.dart';
+import 'package:todo_app/presentation/ui/spec/specification.dart';
 import '../../../core/colors/colors.dart';
 
 class TodoListWidget extends StatelessWidget {
-  final VoidCallback? onTap;
   final String title;
   final String id;
   final String description;
@@ -13,7 +15,6 @@ class TodoListWidget extends StatelessWidget {
 
   const TodoListWidget({
     super.key,
-    required this.onTap,
     required this.title,
     required this.description,
     required this.isCompleted,
@@ -25,165 +26,66 @@ class TodoListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    final TextEditingController headerController =
+        TextEditingController(text: title);
+    final TextEditingController descriptionController =
+        TextEditingController(text: description);
 
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
-        elevation: 6,
-        shadowColor: black,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                height: screenHeight * 0.15,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      // ignore: deprecated_member_use
-                      color: const Color.fromARGB(255, 233, 233, 233),
-                      spreadRadius: 1,
-                      blurRadius: 10,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Material(
-                            shadowColor: Colors.black,
-                            elevation: 25,
-                            child: Container(
-                              height: screenHeight * 0.14,
-                              color: const Color.fromARGB(255, 230, 230, 230),
-                              padding:const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(height: screenHeight * 0.005),
-                                    Row(children: [
-                                      const Icon(
-                                          Icons.install_desktop_rounded,
-                                          color: Color.fromARGB(255, 82, 82, 82),
-                                          size: 10,
-                                        ),
-                                     SizedBox(width: screenWidth * 0.02),
-                                        Expanded(
-                                          
-                                          child: Text(
-                                            id,
-                                            style: const TextStyle(
-                                              color:  Color.fromARGB(255, 82, 82, 82),
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 7.0,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                          ),
-                                        ),
-                                    ],),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.dynamic_form_outlined,
-                                          color: Color.fromARGB(255, 82, 82, 82),
-                                          size: 17,
-                                        ),
-                                        SizedBox(width: screenWidth * 0.02),
-                                        Expanded(
-                                          child: Text(
-                                            title,
-                                            style: const TextStyle(
-                                              color:  Color.fromARGB(255, 82, 82, 82),
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 18.0,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: screenHeight * 0.004),
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        const Icon(
-                                          Icons.description_outlined,
-                                          color: Color.fromARGB(
-                                              255, 104, 104, 104),
-                                          size: 17,
-                                        ),
-                                        SizedBox(width: screenWidth * 0.02),
-                                        Flexible(
-                                          child: Text(
-                                            description,
-                                            style: const TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 104, 104, 104),
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 15.0,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 6,
-                                            softWrap: true,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: screenHeight * 0.01),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            IconButton.outlined(onPressed: delete, icon: Icon(
-                              Icons.delete_sweep
-                            ))
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                top: 7,
-                right: 7,
-                child: Icon(
-                  isCompleted ? Icons.check_box : Icons.check_box_outline_blank_outlined,
-                  color: isCompleted ? blue : black,
+    return Card(
+      elevation: 6,
+      shadowColor: black,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Stack(
+          children: [
+            Detailwidgets(
+                screenHeight: screenHeight,
+                screenWidth: screenWidth,
+                id: id,
+                title: title,
+                description: description,
+                delete: delete),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              child: IconButton(
+                icon: Icon(
+                  isCompleted
+                      ? Icons.check_box
+                      : Icons.check_box_outline_blank_outlined,
                   size: 24,
                 ),
-
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(20)),
+                    ),
+                    builder: (context) {
+                      return BlocProvider(
+                        create: (context) => PutApiBloc(isCompleted: isCompleted),
+                        child: Specification(
+                          id: id,
+                          header: headerController,
+                          description: descriptionController,
+                          isCompleted: isCompleted,
+                        ),
+                      );
+                    },
+                  ).whenComplete(() {
+                    context.read<HomeBloc>().add(HideBottomSheetEvent());
+                  });
+                },
+                color: isCompleted ? blue : black,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

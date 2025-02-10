@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:todo_app/presentation/bloc/home/home_bloc.dart';
+import 'package:todo_app/presentation/home/home_bloc.dart';
 import 'package:todo_app/presentation/repo/api_delete.dart';
 import 'package:todo_app/presentation/ui/add/custom_bottomshet.dart';
 import 'package:todo_app/presentation/ui/home/widget/debounce.dart';
@@ -110,7 +110,6 @@ class HomePage extends StatelessWidget {
                             itemBuilder: (context, index) {
                               final todo = state.todos[index];
                               return TodoListWidget(
-                                  onTap: () {},
                                   title: todo.title,
                                   id: todo.id,
                                   description: todo.description,

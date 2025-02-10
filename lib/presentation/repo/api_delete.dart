@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
-import 'package:todo_app/presentation/bloc/home/home_bloc.dart';
+import 'package:todo_app/presentation/home/home_bloc.dart';
 import 'package:todo_app/presentation/core/colors/colors.dart';
 import 'package:todo_app/presentation/core/widget/snackbar_widget.dart';
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:todo_app/presentation/bloc/home/home_bloc.dart';
+import 'package:todo_app/presentation/home/home_bloc.dart';
 import 'package:todo_app/presentation/bloc/postApi/post_api_bloc.dart';
+import 'package:todo_app/presentation/bloc/putApi/put_api_bloc.dart';
 import 'package:todo_app/presentation/bloc/splash/splash_bloc.dart';
 import 'package:todo_app/presentation/core/colors/colors.dart';
 
@@ -23,9 +24,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => SplashBloc()..add(StartSplashEvent()  
         )),
          BlocProvider(create: (context) => HomeBloc()..add(FetchTodosEvent())),
-        BlocProvider(
-          create: (context) => PostApiBloc(),
-        )
+        BlocProvider( create: (context) => PostApiBloc()),
+        BlocProvider(create: (context) =>  PutApiBloc(isCompleted: false))
       ],
       child: MaterialApp(
         title: 'MY DAY', 

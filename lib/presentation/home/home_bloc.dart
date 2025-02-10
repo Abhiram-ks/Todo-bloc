@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/presentation/repo/api_get.dart';
 
-import '../../model/todo_model.dart';
+import '../model/todo_model.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

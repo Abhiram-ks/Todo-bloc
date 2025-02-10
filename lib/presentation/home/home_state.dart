@@ -7,6 +7,7 @@ final class HomeInitial extends HomeState {}
 
 class BottomSheetVisibleState extends HomeState{}
 class BottomSheetHiddenState extends HomeState {}
+
 class TodoListLoadedState  extends HomeState {
   final List<TodoModel> todos;
   TodoListLoadedState(this.todos);
