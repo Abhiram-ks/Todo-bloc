@@ -8,7 +8,6 @@ class Detailwidgets extends StatelessWidget {
     super.key,
     required this.screenHeight,
     required this.screenWidth,
-    required this.id,
     required this.title,
     required this.description,
     required this.delete,
@@ -16,7 +15,6 @@ class Detailwidgets extends StatelessWidget {
 
   final double screenHeight;
   final double screenWidth;
-  final String id;
   final String title;
   final String description;
   final VoidCallback? delete;
@@ -59,35 +57,12 @@ class Detailwidgets extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: screenHeight * 0.005),
+                         SizedBox(height: screenHeight * 0.01),
                           Row(
                             children: [
                               const Icon(
-                                Icons.install_desktop_rounded,
-                                color: Color.fromARGB(255, 82, 82, 82),
-                                size: 10,
-                              ),
-                              SizedBox(width: screenWidth * 0.02),
-                              Expanded(
-                                child: Text(
-                                  id,
-                                  style: const TextStyle(
-                                    color: Color.fromARGB(255, 82, 82, 82),
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 7.0,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.dynamic_form_outlined,
-                                color: Color.fromARGB(255, 82, 82, 82),
+                                Icons.turned_in_sharp,
+                                color: black,
                                 size: 17,
                               ),
                               SizedBox(width: screenWidth * 0.02),
@@ -147,6 +122,7 @@ class Detailwidgets extends StatelessWidget {
               child: Column(
                 children: [
                   IconButton.outlined(
+                       color: const Color.fromARGB(255, 247, 115, 106),
                       onPressed: delete, icon: Icon(Icons.delete_sweep))
                 ],
               ),

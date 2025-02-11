@@ -23,18 +23,18 @@ class PostApiBloc extends Bloc<PostApiEvent, PostApiState> {
     emit(FormSubmittingState());
     log('Submitting form: ${event.header} - ${event.description}');
 
-    bool success = await PostMethod.addPost(
+    String? success = await PostMethod.addPost(
       title: event.header, 
       description: event.description,
     
     );
 
-    if (success) {
+    if (success == null) {
       log('Form submitted successfully');
       emit(FormSubmissionSuccessState());
     } else {
       log('Form submission failed');
-      emit(FormSubmissionFailureState(error: 'Submission failed'));
+      emit(FormSubmissionFailureState(error: success));
     }
   } catch (e) {
     log('Error Post: $e');

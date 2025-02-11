@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(title: 'To-Do All Lists'),
+      appBar: CustomAppbar(title: 'To-Do Lists'),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           context.read<HomeBloc>().add(ShowBottomSheetEvent());
@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Searchbarmain(
               hintText: 'Seach for your Todo',
               onSearchPressed: (query) {
@@ -78,50 +78,69 @@ class HomePage extends StatelessWidget {
               builder: (context, state) {
                 if (state is TodoListLoadedState) {
                   return RefreshIndicator(
-                    onRefresh: () async {
-                      context.read<HomeBloc>().add(FetchTodosEvent());
-                    },
-                    child: state.todos.isEmpty
-                        ? SingleChildScrollView(
-                            physics: AlwaysScrollableScrollPhysics(),
-                            child: SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.6,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    'No tasks available',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w800),
-                                  ),
-                                  const Text(
-                                    'Try Again!',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
+                      onRefresh: () async {
+                        context.read<HomeBloc>().add(FetchTodosEvent());
+                      },
+                      child: state.todos.isEmpty
+                          ? SingleChildScrollView(
+                              physics: AlwaysScrollableScrollPhysics(),
+                              child: SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.6,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: const Text(
+                                        'No tasks available',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                    ),
+                                    const Text(
+                                      'Try Again!',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        : ListView.separated(
-                            itemCount: state.todos.length,
-                            itemBuilder: (context, index) {
-                              final todo = state.todos[index];
-                              return TodoListWidget(
-                                  title: todo.title,
-                                  id: todo.id,
-                                  description: todo.description,
-                                  isCompleted: todo.isCompleted,
-                                  delete: () {
-                                    deleteTodo(context, todo.id);
-                                  });
-                            },
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(height: 10),
-                          ),
-                  );
+                            )
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: 30), 
+                                const Text(
+                                  ' All ToDos',
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w900),
+                                ),
+                                Expanded(
+                                  child: ListView.separated(
+                                    itemCount: state.todos.length,
+                                    itemBuilder: (context, index) {
+                                      final todo = state.todos[index];
+                                      return TodoListWidget(
+                                        title: todo.title,
+                                        id: todo.id,
+                                        description: todo.description,
+                                        isCompleted: todo.isCompleted,
+                                        delete: () {
+                                          deleteTodo(context, todo.id);
+                                        },
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) =>
+                                        const SizedBox(height: 10),
+                                  ),
+                                ),
+                              ],
+                            ));
                 } else {
                   return Center(
                     child: Lottie.asset(
@@ -139,4 +158,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-

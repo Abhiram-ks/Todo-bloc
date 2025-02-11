@@ -44,7 +44,6 @@ class TodoListWidget extends StatelessWidget {
             Detailwidgets(
                 screenHeight: screenHeight,
                 screenWidth: screenWidth,
-                id: id,
                 title: title,
                 description: description,
                 delete: delete),
@@ -79,6 +78,7 @@ class TodoListWidget extends StatelessWidget {
                       );
                     },
                   ).whenComplete(() {
+                    // ignore: use_build_context_synchronously
                     context.read<HomeBloc>().add(HideBottomSheetEvent());
                   });
                 },

@@ -12,7 +12,9 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  
     return BlocConsumer<SplashBloc,SplashState>(
+     
       listener: (context, state) {
         if (state is SplashCompledState) {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(),));

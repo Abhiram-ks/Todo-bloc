@@ -26,6 +26,15 @@ Future<void> deleteTodo(BuildContext context, String id) async {
           description: 'Todo deleted successfully',
           backgroundColor: garen,
           icon: Icons.delete_sweep);
+    } else if (response.statusCode == 500){
+       log(response.statusCode.toString());
+      CustomeSnackBar.show(
+          // ignore: use_build_context_synchronously
+          context: context,
+          title: "Internal Server Error",
+          description: 'Server is down. Please try again later.',
+          backgroundColor: red,
+          icon: Icons.delete_sweep);
     } else {
       log(response.statusCode.toString());
       CustomeSnackBar.show(

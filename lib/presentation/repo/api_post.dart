@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 class PostMethod {
-  static Future<bool> addPost({required String title, required String description}) async{
+  static Future<String?> addPost({required String title, required String description}) async{
    
      Map<String, dynamic> body = {
        "title": title,
@@ -23,14 +23,17 @@ class PostMethod {
        if (response.statusCode >= 200 && response.statusCode < 300) {
          log('Error Post: ${response.statusCode} - ${response.body}');
          log('Success response! Post ${response.statusCode}');
-         return true;
+         return null;
+       } else if(response.statusCode == 500){
+        log('Server Error: ${response.statusCode}');
+          return 'Internal Server Error. Please try again later.';
        } else {
          log('Error Post: ${response.statusCode} ');
-         return false;
+         return 'Submission failed. Please try again.';
        }
      } catch (e) {
        log('Post Error: $e');
-       return false;
+       return 'An error occurred. Please check your connection.';
      } finally {
       client.close();
      }

@@ -38,16 +38,17 @@ class CustomeBottmSheet extends StatelessWidget {
             description.clear();
             context.read<HomeBloc>().add(FetchTodosEvent());
           } else if( state is FormSubmissionFailureState){
-            if (context.mounted) {
-            Navigator.pop(context);
-          CustomeSnackBar.show(
+          if (context.mounted) {
+           Navigator.pop(context);
+           String errorMessage = state.error;
+           CustomeSnackBar.show(
             context: context,
             title: 'Task Submission Failed',
-            description: 'Task submission failed. Please try again.',
+            description: errorMessage.contains("Internal Server Error") ? 'Server is down. Please try again later.' : 'Task submission failed. Please try again.',
             backgroundColor: red,
             icon: Icons.thumb_down,
           );
-                      header.clear();
+            header.clear();
             description.clear();
             }
           }

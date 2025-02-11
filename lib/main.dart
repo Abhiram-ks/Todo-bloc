@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         
         BlocProvider(create: (context) => SplashBloc()..add(StartSplashEvent()  
         )),
-         BlocProvider(create: (context) => HomeBloc()..add(FetchTodosEvent())),
+        BlocProvider(create: (context) => HomeBloc()..add(FetchTodosEvent())),
         BlocProvider( create: (context) => PostApiBloc()),
         BlocProvider(create: (context) =>  PutApiBloc(isCompleted: false))
       ],
