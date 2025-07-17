@@ -5,7 +5,7 @@ This Flutter TODO application is a clean, scalable, and production-ready task ma
 * Task Management	Add, edit, delete, and complete tasks
 * Timestamps	Track creation and update time of each task
 * Filter & Sort	View tasks by status, date, or priority
-* Date Grouping	Auto-group tasks under headers like "Today", "Tomorrow", etc.
+* Date Grouping	Auto-group tasks under headers like "Today", "Tomorrow", etc. 
 * Real-time State Updates	Instant UI reflection on any action using BLoC
 * Modular Architecture	Clearly separated layers: Data, Domain, and Presentation
 * Testability	Business logic easily unit-testable
